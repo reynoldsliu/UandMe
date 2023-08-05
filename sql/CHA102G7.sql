@@ -1,6 +1,7 @@
 create schema main;
 use main;
-drop schema main;
+-- drop schema main;
+
 
 -- members 許彤
 create table members (
@@ -93,12 +94,6 @@ select * from orders;
 
 
 
-
-
-
-create table product(
-prod_id int primary key
-);
 
 create table order_details(
 	ord_id int,
@@ -343,12 +338,6 @@ VALUES
 select * from attractions;
 -- drop table attractions;
 
-insert into attractions(attr_id, attr_veri_sta, attr_sta, attr_name, attr_type_id)
-values
-(1,0,0,'attr_01',1),
-(2,0,0,'attr_02',2),
-(3,0,0,'attr_03',3),
-(4,0,0,'attr_04',4);
 
 -- create table members(
 -- mem_id int primary key,
@@ -365,14 +354,17 @@ values
 create table attraction_collections (
 attr_id int,
 mem_id int,
-attr_col_illa varchar(500),
+
+attr_col_illa varchar(500)
+
 -- primary key (attr_id, mem_id),
 -- foreign key(mem_id) references members(mem_id),
 -- foreign key(attr_id) references attractions(attr_id)
 
 );
 
-insert into attraction_collections(fk_attr_id, fk_mem_id, attr_col_illa)
+insert into attraction_collections(attr_id, mem_id, attr_col_illa)
+
 values
 (1,1,"第一個會員的第一筆收藏");
 
@@ -421,20 +413,23 @@ prodcat_name varchar(10)
 -- 商品 --
 create table product(
 prod_id int primary key,
-prodcat_id int, 
+
+prodcat_id int,
+
 prod_name varchar(20),
 prod_con varchar(1000),
 prod_pri int,
 prod_qty int,
 prod_sta tinyint default 0,
-prod_spec varchar(20),
+
+prod_spec varchar(20)
+
 -- constraint fk_prodcat_id
 -- foreign key (prodcat_id) references product_category(prodcat_id)
 );
 
 -- 暫時建的會員--
-create table members(mem_id int primary key
-);
+
 
 -- 商品收藏明細 --
 create table product_collection(
@@ -500,19 +495,6 @@ values
 (9,'行李吊牌','行李箱小物',300,10,'1入'),
 (10,'剝皮辣椒','新鮮',200,10,'1入');
 
-
-insert into members(mem_id)
-value
-(1), 
-(2),
-(3),
-(4),
-(5),
-(6),
-(7),
-(8),
-(9),
-(10);
 
 select * from product_collection;
 insert into product_collection(prod_id,mem_id)
@@ -727,7 +709,9 @@ create table article_rep (
     ac_tag_id int, -- fk
     host_id int, -- fk
     report_time datetime, -- not null
-    report_reason varchar(800) ,-- not null
+
+    report_reason varchar(800) ,-- not nulluser
+
     report_state tinyint -- not null
     -- constraint fk_mem_id
     -- foreign key (mem_id) references mem (mem_id),
@@ -796,7 +780,9 @@ create table qa (
     );
 
 -- select * from qa;
-drop table qa;
+
+-- drop table qa;
+
 insert into qa(qa_id, qa_title, qa_con, qa_state) values
 (1,'如何註冊遊&ME帳戶？','創建遊&ME帳號完全免費，您可透過email註冊：1.進入遊&ME首頁，點選右上方『登入/註冊』，選擇下方『註冊』。2.填寫您的電子信箱以及預設密碼，點選『註冊』。3.至您的電子信箱內查收驗證信件，點選信件中的網址顯示『聯絡信箱驗證成功』。4.至遊&ME點選右上方『登入/註冊』，輸入您的帳號密碼登入後即可建立行程及訂購商品。',1),
 (2,'如何重置會員帳號的密碼？','1.忘記密碼:如果您因忘記密碼無法登入遊&ME，請於登入畫面點選『忘記密碼』，輸入您註冊遊&ME帳號時所使用的電子郵件地址，您將收到一封含有重置密碼鏈結，進行密碼修改。2.修改密碼:您可以登入會員後，在【帳號設定】中更改密碼。',1),
